@@ -9,12 +9,16 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
         <link rel="stylesheet" href="{{('css/app.css')}}">
+        <link href="{{ asset('css/styles.css') }}" rel="stylesheet" type="text/css" >
         <title>{{ config('app.name', 'Laravel Tutorials') }}</title>
     </head>
     <body class="bg-light">
         @include('inc.navbar')
         <div class="shadow-lg p-3 m-3 ">
             <div class="container-fluid d-flex h-100 flex-column">
+                <div class="col-md-8"> 
+                    @include('inc.messages')
+                </div>
                 @yield('content')
             </div>
         </div>
