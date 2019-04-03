@@ -27,12 +27,30 @@ class PostsController extends Controller{
     public function store(Request $request){
         $this->validate($request, [
             'title'=>'required',
+            'cover_pix' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
             'body'=>'required'
-        ]);
+        ]);      
+
+        if($request->hasFile('cover_pix')){
+            // get file with extension
+            $fileNameWithExt = $request->file('cover_pix')->getClientOriginalName();
+            // get just filename
+            $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            // get just ext
+            $extension = $request->file('cover_pix')->getClientOriginalExtension();
+            // filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            // upload image
+            $path = $request->file('cover_pix')->storeAs('public/cover_img', $fileNameToStore);
+        }
+        else{
+            $fileNameToStore = 'default.jpg';
+        }
         
         $post = new Post;
         $post->title = $request->input('title');
         $post->body = $request->input('body');
+        $post->cover_pix = $fileNameToStore;
         $post->user_id = auth()->user()->id;
         $post->save();
 
@@ -57,7 +75,7 @@ class PostsController extends Controller{
             'title'=>'required',
             'body'=>'required'
         ]);
-        
+
         $post = Post::find($id);
         $post->title = $request->input('title');
         $post->body = $request->input('body');
