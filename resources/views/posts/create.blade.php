@@ -17,7 +17,7 @@
                 </div>                
                 <div class="form-group">
                     <label>Body:</label>
-                    <textarea name="body" rows="5" class="form-control"></textarea>
+                    <textarea id="article-ckeditor" name="body" rows="5" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Create Post</button>
