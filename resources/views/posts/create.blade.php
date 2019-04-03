@@ -1,11 +1,12 @@
-@extends('layout.app')
+@extends('layouts.app')
 
 @section('content')
-    <div class="col-md-9">
-        <div class="col-md-9">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            @include('inc.messages')
             <h3>Create Post</h3>
-            <form action="/posts" method="POST">
-                {{ csrf_field() }}
+            <form method="post" action="{{ route('posts.store') }}">
+                @csrf
                 <div class="form-group">
                     <label>Title:</label>
                     <input name="title" class="form-control"/>
