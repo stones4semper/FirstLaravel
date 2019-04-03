@@ -4,7 +4,7 @@
     <div class="col-md-8 m-3">
         @if($post)
             <p class="card mb-3">
-                {{-- <img class="card-img-top" src="..." alt="Card image cap"> --}}
+                <img class="card-img-top" src="/storage/cover_img/{{$post->cover_pix}}" alt="{{$post->user->name}}">
                 <p class="card-body">
                     <h5 class="card-title">{{$post->title}}</h5>
                     <p class="card-text">

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Post;
 use DB;
@@ -50,7 +50,7 @@ class PostsController extends Controller{
         $post = new Post;
         $post->title = $request->input('title');
         $post->body = $request->input('body');
-        $post->cover_pix = $fileNameToStore;
+        $post->cover_pix = "$fileNameToStore";
         $post->user_id = auth()->user()->id;
         $post->save();
 
@@ -76,9 +76,25 @@ class PostsController extends Controller{
             'body'=>'required'
         ]);
 
+        if($request->hasFile('cover_pix')){
+            // get file with extension
+            $fileNameWithExt = $request->file('cover_pix')->getClientOriginalName();
+            // get just filename
+            $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            // get just ext
+            $extension = $request->file('cover_pix')->getClientOriginalExtension();
+            // filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            // upload image
+            $path = $request->file('cover_pix')->storeAs('public/cover_img', $fileNameToStore);
+        }
+
         $post = Post::find($id);
         $post->title = $request->input('title');
         $post->body = $request->input('body');
+        if($request->hasFile('cover_pix')){
+            $post->cover_pix = "$fileNameToStore";
+        }
         $post->save();
 
         return redirect("/posts/$id")->with('success', 'Post has been updated');
@@ -90,6 +106,9 @@ class PostsController extends Controller{
             return redirect('/posts')->with('error', 'You dont have permission to access that page');
         }
         $post->delete();
+        if($post->cover_pix != 'default.pg'){
+            Storage::delete('public/cover_img/'.$post->cover_pix);
+        }
    
         return redirect('/posts')->with('success', 'Post has been deleted Successfully');
     }
