@@ -3,7 +3,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    
+
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
@@ -19,26 +19,31 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{'/posts'}}">Blog</a>
                 </li>
-            @else 
+            @else
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Blog
+                        Blog
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{'/posts'}}">Blog</a>
                         <a class="dropdown-item" href="{{'/posts/create'}}">Create Post</a>
                     </div>
                 </li>
+                @if(auth()->user()->isAdmin == 1)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('admin/routes')}}">Admin</a>
+                    </li>
+                @endif 
             @endguest
         </ul>
-        <ul class="navbar-nav ml-auto">           
+        <ul class="navbar-nav ml-auto">
             <li class="nav-item mr-3">
                 <form class="form-inline my-2 my-lg-0" method="Post" action="/posts/search">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </li>
-            @guest  
+            @guest
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                 </li>
@@ -65,7 +70,7 @@
                         </form>
                     </div>
                 </li>
-            @endguest 
-        </ul>      
+            @endguest
+        </ul>
     </div>
 </nav>

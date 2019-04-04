@@ -16,6 +16,6 @@ Route::get('/about', 'PagesController@about');
 Route::get('/service', 'PagesController@service');
 Route::resource('posts', 'PostsController');
 Route::resource('test', 'TestsController');
-Auth::routes();
-
 Route::get('/dashboard', 'DashboardController@index');
+Auth::routes();
+Route::get('admin/routes', 'AdminController@index')->middleware('admin');

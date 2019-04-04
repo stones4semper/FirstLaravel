@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @include('inc.messages')
             @if(count($posts)>0)
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
@@ -25,7 +26,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger btn-sm" type="submit">Delete</button>
-                                    </form> 
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
