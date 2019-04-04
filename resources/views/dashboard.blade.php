@@ -21,7 +21,8 @@
                                 <td></td>
                                 <td>{{$post->title}}</td>
                                 <td>
-                                    <a class="btn btn-info btn-sm mb-2" href="posts/{{$post->id}}">Edit</a>
+                                    <a class="btn btn-primary btn-sm mb-2" href="posts/{{$post->id}}/">Show</a>
+                                    <a class="btn btn-info btn-sm mb-2" href="posts/{{$post->id}}/edit">Edit</a>
                                     <form action="{{ route('posts.destroy', $post->id)}}" method="post">
                                         @csrf
                                         @method('DELETE')
